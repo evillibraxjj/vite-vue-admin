@@ -1,16 +1,5 @@
 <template>
-	<a-table
-		size="middle"
-		ref="tableRef"
-		rowKey="id"
-		:columns="columns"
-		:data-source="dataSource"
-		:scroll="scroll"
-		:pagination="pagination"
-		:loading="loading"
-		@change="onChange"
-		bordered
-	>
+	<page-table ref="tableRef" rowKey="id" :formState="formState" :service="getUserList">
 		<template #title>
 			<a-form ref="formRef" :model="formState" layout="inline" @finish="onFinish">
 				<a-form-item name="user">
@@ -26,50 +15,35 @@
 				</a-space>
 			</a-form>
 		</template>
-		<template #name="{ text, record }">
-			<a>{{ text }}（{{ record.id }}）</a>
-		</template>
-		<template #sex="{ text }">
-			{{ sexDic.filter(text) }}
-		</template>
-		<template #roles="{ text }">
-			<a-tag v-for="item in text" :key="item">{{ item }}</a-tag>
-		</template>
-	</a-table>
+		<a-table-column key="name" title="姓名" data-index="name" width="120px">
+			<template #default="{ text: name, record }">
+				<a>{{ name }}（{{ record.id }}）</a>
+			</template>
+		</a-table-column>
+		<a-table-column key="account" title="账号" data-index="account" width="150px" />
+		<a-table-column key="sex" title="性别" data-index="sex" width="100px">
+			<template #default="{ text: sex }">
+				{{ sexDic.filter(sex) }}
+			</template>
+		</a-table-column>
+		<a-table-column key="roles" title="角色" data-index="roles">
+			<template #default="{ text: roles }">
+				<a-tag v-for="role in roles" :key="role">{{ role }}</a-tag>
+			</template>
+		</a-table-column>
+		<a-table-column title="操作" width="200px">
+			<template #default>
+				<a-button type="link" size="mini">详情</a-button>
+				<a-button type="link" size="mini">编辑</a-button>
+				<a-button type="link" size="mini">删除</a-button>
+			</template>
+		</a-table-column>
+	</page-table>
 </template>
 <script setup>
 import { ref, reactive, toRaw } from 'vue';
-import usePageTable from '@/hooks/usePageTable';
-import { sexDic } from '@/utils/dictionary';
 import { getUserList } from '@/api/user';
-
-const columns = [
-	{
-		title: '姓名',
-		dataIndex: 'name',
-		slots: {
-			customRender: 'name',
-		},
-	},
-	{
-		title: '账号',
-		dataIndex: 'account',
-	},
-	{
-		title: '性别',
-		dataIndex: 'sex',
-		slots: {
-			customRender: 'sex',
-		},
-	},
-	{
-		title: '角色',
-		dataIndex: 'roles',
-		slots: {
-			customRender: 'roles',
-		},
-	},
-];
+import { sexDic } from '@/utils/dictionary';
 
 const tableRef = ref();
 const formRef = ref();
@@ -79,34 +53,16 @@ const formState = reactive({
 	code: '',
 });
 
-const {
-	scroll,
-	loading,
-	pagination,
-	data: dataSource,
-	run,
-} = usePageTable(getUserList, {
-	ref: tableRef,
-});
-
 const onFinish = () => {
-	run({
+	tableRef.value.refresh({
 		...toRaw(formState),
 		pageNo: 1,
 	});
 };
 
-const onReset = () => {
-	formRef.value.resetFields();
-	onFinish();
-};
-
-const onChange = (pag) => {
-	run({
-		pageNo: pag.current,
-		pageSize: pag.pageSize,
-		...toRaw(formState),
-	});
+const onReset = async () => {
+	await formRef.value.resetFields();
+	tableRef.value.refresh({ pageNo: 1 });
 };
 
 const onExport = () => {

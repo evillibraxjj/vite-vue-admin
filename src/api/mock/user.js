@@ -30,7 +30,7 @@ export default {
 			data: {
 				pageNo,
 				pageSize,
-				total: list.length,
+				total: 100,
 				list,
 			},
 		};

@@ -6,7 +6,6 @@ export default {
 			timeout: '600-1200',
 		});
 		const files = import.meta.globEager('./*.js');
-		console.info(files);
 		Object.entries(files).forEach(([key, module]) => {
 			if (key === './index.js') return;
 			for (let [path, target] of Object.entries(module.default)) {
