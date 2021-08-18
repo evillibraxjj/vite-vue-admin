@@ -8,11 +8,13 @@
 import { watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import locale from 'ant-design-vue/es/locale/zh_CN';
+import cache from '@/cache';
 
 const route = useRoute();
 const router = useRouter();
 
 watch(route, () => {
+	cache.route = route;
 	//判断是否刷新页面 跳转到首页添加重新向
 	if (route.name) return;
 	router.push('/?replace=' + encodeURIComponent(route.fullPath.toLowerCase()));

@@ -5,13 +5,14 @@
 		:scroll="scroll"
 		:loading="loading"
 		:rowKey="props.rowKey"
+		:row-selection="props.rowSelection"
 		:pagination="pagination"
 		:data-source="dataSource"
 		@change="onChange"
 		bordered
 	>
 		<template #title>
-			<slot name="title"></slot>
+			<slot name="form" />
 		</template>
 		<slot />
 	</a-table>
@@ -21,7 +22,9 @@ import { defineProps, defineExpose, ref, nextTick, computed, onMounted } from 'v
 import { useRequest } from 'vue-request';
 
 const props = defineProps({
+	rowSelection: Object,
 	service: Function,
+	scroll: Object,
 	rowKey: {
 		type: String,
 		default: 'key',
@@ -39,7 +42,8 @@ const props = defineProps({
 
 const tableRef = ref();
 
-const scroll = ref({});
+const scroll = ref(props.scroll);
+
 const pageNo = ref(1);
 const pageSize = ref(20);
 const total = ref(0);
@@ -92,6 +96,7 @@ onMounted(() => {
 	const $title = $el.getElementsByClassName('ant-table-title');
 	let excessHeight = 270;
 	if ($title.length) excessHeight += $title[0].offsetHeight;
+	if (isNaN(excessHeight)) excessHeight = 0;
 	const height = `calc(100vh - ${excessHeight}px)`;
 	const $body = $el.getElementsByClassName('ant-table-body');
 	if ($body.length) {
@@ -100,7 +105,7 @@ onMounted(() => {
 		});
 	}
 
-	scroll.value = { y: height };
+	scroll.value = { ...scroll.value, y: height };
 });
 
 defineExpose({
