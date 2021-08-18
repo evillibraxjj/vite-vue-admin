@@ -7,8 +7,6 @@ import { getUserInfo } from '@/api/user';
 import { getAuthMenu } from '@/api/auth';
 
 const filterRoute = (routes) => {
-	const cacheRoutes = JSON.parse(sessionStorage.getItem('routes'));
-	sessionStorage.setItem('routes', JSON.stringify([...cacheRoutes, ...routes]));
 	return routes
 		.map((route) => {
 			if (route.children && route.children.length) {
@@ -30,7 +28,6 @@ const filterRoute = (routes) => {
 };
 
 const loadData = async () => {
-	sessionStorage.setItem('routes', JSON.stringify([]));
 	return await Promise.all([getUserInfo(), getAuthMenu()]);
 };
 

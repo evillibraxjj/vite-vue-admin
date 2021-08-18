@@ -5,18 +5,17 @@
 </template>
 
 <script setup>
-import { watch } from 'vue';
+import { watch, toRefs } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import locale from 'ant-design-vue/es/locale/zh_CN';
 
 const route = useRoute();
 const router = useRouter();
 
-watch(route, () => {
-	sessionStorage.setItem('route', JSON.stringify(route));
+watch(route, (val) => {
 	//判断是否刷新页面 跳转到首页添加重新向
-	if (route.name) return;
-	router.push('/?replace=' + encodeURIComponent(route.fullPath.toLowerCase()));
+	if (val.name) return val && val.meta && sessionStorage.setItem('routeMeta', JSON.stringify(val.meta));
+	router.push('/?replace=' + encodeURIComponent(val.fullPath.toLowerCase()));
 });
 </script>
 
