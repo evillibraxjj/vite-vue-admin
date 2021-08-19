@@ -51,9 +51,9 @@ export default () => {
 			//判断是否重定向页面
 			let replace = route.query.replace;
 			if (replace) {
-				const fullPathList = router.getRoutes().map((e) => e.path);
+				const fullPathList = router.getRoutes().map((e) => e.path.toLowerCase());
 				replace = decodeURIComponent(replace);
-				if (fullPathList.includes(replace)) return router.replace(replace);
+				if (fullPathList.includes(replace.split('?')[0].toLowerCase())) return router.replace(replace);
 			}
 
 			router.replace({ name: 'home' });

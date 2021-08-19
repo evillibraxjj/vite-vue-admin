@@ -1,5 +1,11 @@
 <template>
-	<page-table ref="tableRef" rowKey="id" :formState="formState" :row-selection="rowSelection" :service="getUserList">
+	<page-table
+		ref="tableRef"
+		rowKey="id"
+		v-model:formState="formState"
+		:row-selection="rowSelection"
+		:service="getUserList"
+	>
 		<template #form>
 			<a-form ref="formRef" :model="formState" layout="inline" @finish="onFinish">
 				<a-form-item name="user">
@@ -44,7 +50,7 @@
 	</page-table>
 </template>
 <script setup>
-import { ref, reactive, toRaw } from 'vue';
+import { ref, reactive } from 'vue';
 import { getUserList } from '@/api/user';
 import { sexDic } from '@/utils/dictionary';
 
@@ -63,9 +69,9 @@ const rowSelection = reactive({
 	},
 });
 
-const onFinish = () => {
+const onFinish = (values) => {
 	tableRef.value.refresh({
-		...toRaw(formState),
+		...values,
 		pageNo: 1,
 	});
 };

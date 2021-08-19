@@ -15,7 +15,7 @@ const router = useRouter();
 watch(route, (val) => {
 	//判断是否刷新页面 跳转到首页添加重新向
 	if (val.name) return val && val.meta && sessionStorage.setItem('routeMeta', JSON.stringify(val.meta));
-	router.push('/?replace=' + encodeURIComponent(val.fullPath.toLowerCase()));
+	router.push('/?replace=' + encodeURIComponent(val.fullPath));
 });
 </script>
 

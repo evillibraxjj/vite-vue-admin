@@ -21,6 +21,7 @@ export default {
 		};
 	},
 	'get|/list*': ({ body }) => {
+		console.info(body);
 		const { pageNo, pageSize } = JSON.parse(body);
 		const list = [user];
 		return {
