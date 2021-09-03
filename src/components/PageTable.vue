@@ -18,7 +18,7 @@
   </a-table>
 </template>
 <script setup>
-import { defineProps, defineExpose, ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useRequest } from 'vue-request';
 

@@ -1,11 +1,6 @@
 export default {
-  mounted(el, binding) {
-    try {
-      const routeMeta = binding.instance.$root.route.meat;
-      const actions = routeMeta.actions;
-      if (!actions || !actions.includes(binding.value)) el.parentNode && el.parentNode.removeChild(el);
-    } catch (error) {
-      el.parentNode && el.parentNode.removeChild(el);
-    }
+  mounted(el, { instance, value }) {
+    const actions = instance.$root.route.meta.actions;
+    if (!actions || !actions.includes(value)) el.parentNode && el.parentNode.removeChild(el);
   },
 };
