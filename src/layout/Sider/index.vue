@@ -13,7 +13,7 @@
       </template>
       首页
     </a-menu-item>
-    <template v-for="item in routes" :key="item.key">
+    <template v-for="item in siderList" :key="item.key">
       <template v-if="!item.children">
         <a-menu-item :key="item.name">
           <template #icon>
@@ -29,26 +29,34 @@
   </a-menu>
 </template>
 <script setup>
-import { watch, ref, inject } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import SubMenu from "./SubMenu.vue";
+import { watch, computed, ref, inject } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import SubMenu from './SubMenu.vue';
 
 const route = useRoute();
 const router = useRouter();
 
+const routes = inject('routes');
+
 const selectedKeys = ref([route.name]);
 const openKeys = ref([]);
-const routes = inject("routes");
 
-const onSelectMenu = (e) => {
-  router.push({ name: e.key });
-};
-
-watch(route, (val) => {
-  selectedKeys.value = [val.name];
-  if (openKeys.value.length) return;
-  openKeys.value = route.matched.map((e) => e.name);
+let cacheList = [];
+const siderList = computed(() => {
+  const matched = route.matched;
+  if (matched.length < 2) return [];
+  const findRoute = routes.value.find((e) => e.name == matched[1].name);
+  if (!findRoute) return cacheList;
+  cacheList = findRoute.children ?? [];
+  return cacheList;
 });
+
+watch(route, ({ name, matched }) => {
+  selectedKeys.value = [name];
+  openKeys.value = matched.map((e) => e.name);
+});
+
+const onSelectMenu = ({ key: name }) => router.push({ name });
 </script>
 
 <style lang="less" scoped>

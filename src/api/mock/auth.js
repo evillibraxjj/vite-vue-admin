@@ -1,21 +1,42 @@
 const router = [
   {
+    path: '/service',
+    name: 'service',
+    meta: {
+      title: '服务管理',
+      icon: 'UsergroupAddOutlined',
+      show: false,
+    },
+    component: 'userList',
+  },
+  {
     path: '/user',
     name: 'user',
     meta: {
-      title: '权限管理',
+      title: '用户管理',
       icon: 'UsergroupAddOutlined',
     },
+    redirect: { name: 'userList' },
     children: [
       {
-        path: 'list',
-        name: 'userList',
+        path: 'account',
+        name: 'account',
         meta: {
-          title: '用户列表',
+          title: '账号管理',
           icon: 'OrderedListOutlined',
-          actions: ['export', 'update'],
         },
-        component: 'userList',
+        children: [
+          {
+            path: 'list',
+            name: 'userList',
+            meta: {
+              title: '用户列表',
+              icon: 'OrderedListOutlined',
+              actions: ['export', 'update'],
+            },
+            component: 'userList',
+          },
+        ],
       },
     ],
   },

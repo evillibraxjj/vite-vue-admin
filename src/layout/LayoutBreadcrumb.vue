@@ -15,11 +15,11 @@
 </template>
 
 <script setup>
-import { inject } from "vue";
-import { useRoute } from "vue-router";
+import { inject } from 'vue';
+import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const routerKey = inject("routerKey");
+const routerKey = inject('routerKey');
 
 const onReload = () => {
   routerKey.value = new Date().getTime();

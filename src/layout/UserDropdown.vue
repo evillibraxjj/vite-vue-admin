@@ -15,30 +15,30 @@
   </a-dropdown>
 </template>
 <script setup>
-import { ExclamationCircleOutlined } from "@ant-design/icons-vue";
-import { createVNode, inject } from "vue";
-import { useRouter } from "vue-router";
-import { Modal } from "ant-design-vue";
+import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
+import { createVNode, inject } from 'vue';
+import { useRouter } from 'vue-router';
+import { Modal } from 'ant-design-vue';
 const router = useRouter();
-const userInfo = inject("userInfo");
+const userInfo = inject('userInfo');
 
 const onClickLogout = () => {
   Modal.confirm({
-    title: "确定退出登录？",
+    title: '确定退出登录？',
     icon: createVNode(ExclamationCircleOutlined),
-    okText: "取消",
+    okText: '取消',
     okButtonProps: {
-      type: "primary",
+      type: 'primary',
     },
-    cancelText: "确定",
+    cancelText: '确定',
     cancelButtonProps: {
-      type: "primary",
+      type: 'primary',
       danger: true,
     },
     onCancel() {
       userInfo.value = null;
-      localStorage.removeItem("token");
-      router.push({ name: "login" });
+      localStorage.removeItem('token');
+      router.push({ name: 'login' });
     },
   });
 };

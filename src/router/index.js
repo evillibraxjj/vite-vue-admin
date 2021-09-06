@@ -1,25 +1,25 @@
-import { createRouter, createWebHashHistory } from "vue-router";
-import { layout, login, home } from "./views";
+import { createRouter, createWebHashHistory } from 'vue-router';
+import { layout, login, home } from './views';
 
 const routes = [
   {
-    path: "/",
-    name: "layout",
+    path: '/',
+    name: 'layout',
     component: layout,
     meta: {
-      title: "首页",
+      title: '首页',
     },
     children: [
       {
-        path: "/home",
-        name: "home",
+        path: '/home',
+        name: 'home',
         component: home,
       },
     ],
   },
   {
-    path: "/login",
-    name: "login",
+    path: '/login',
+    name: 'login',
     component: login,
   },
 ];
@@ -29,11 +29,11 @@ const router = createRouter({
   routes,
 });
 
-const loginPath = "/login";
+const loginPath = '/login';
 const whiteList = [loginPath];
 router.beforeEach((to, _from, next) => {
   if (whiteList.includes(to.path)) return next();
-  if (!localStorage.getItem("token")) return next(loginPath);
+  if (!localStorage.getItem('token')) return next(loginPath);
   return next();
 });
 

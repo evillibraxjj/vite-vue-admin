@@ -1,6 +1,6 @@
 <template>
-	<div>{{ userInfo }}</div>
-	<div class="routes" @click="color = 'blue'">{{ routes }}</div>
+  <div>{{ userInfo }}</div>
+  <div class="routes" @click="color = 'blue'">{{ routes }}</div>
 </template>
 
 <script setup>
@@ -14,6 +14,6 @@ const color = ref('red');
 
 <style lang="less" scoped>
 .routes {
-	color: v-bind(color);
+  color: v-bind(color);
 }
 </style>

@@ -11,6 +11,7 @@
             :is="collapsed ? 'menu-unfold-outlined' : 'menu-fold-outlined'"
             @click="() => (collapsed = !collapsed)"
           />
+          <HorizontalMenu />
           <UserDropdown />
         </a-layout-header>
         <a-layout-content>
@@ -25,19 +26,20 @@
   </a-spin>
 </template>
 <script setup>
-import { ref, provide } from "vue";
-import useLoadUserInfo from "@/hooks/useLoadUserInfo";
-import Sider from "./Sider/index.vue";
-import UserDropdown from "./UserDropdown.vue";
-import LayoutBreadcrumb from "./LayoutBreadcrumb.vue";
+import { ref, provide } from 'vue';
+import useLoadUserInfo from '@/hooks/useLoadUserInfo';
+import HorizontalMenu from './HorizontalMenu.vue';
+import Sider from './Sider/index.vue';
+import UserDropdown from './UserDropdown.vue';
+import LayoutBreadcrumb from './LayoutBreadcrumb.vue';
 
 const copyright = import.meta.env.VITE_COPYRIGHT;
 
 const routerKey = ref(new Date().getTime());
-provide("routerKey", routerKey);
+provide('routerKey', routerKey);
 
 const collapsed = ref(false);
-provide("collapsed", collapsed);
+provide('collapsed', collapsed);
 
 const { loading } = useLoadUserInfo();
 </script>
