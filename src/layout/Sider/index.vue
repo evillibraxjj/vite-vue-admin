@@ -1,5 +1,5 @@
 <template>
-  <div class="logo" />
+  <LogoDrawer />
   <a-menu
     mode="inline"
     theme="dark"
@@ -31,6 +31,7 @@
 <script setup>
 import { watch, computed, ref, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import LogoDrawer from './LogoDrawer.vue';
 import SubMenu from './SubMenu.vue';
 
 const route = useRoute();
@@ -60,11 +61,6 @@ const onSelectMenu = ({ key: name }) => router.push({ name });
 </script>
 
 <style lang="less" scoped>
-.logo {
-  height: 32px;
-  margin: 16px;
-  background: rgba(255, 255, 255, 0.3);
-}
 .ant-menu {
   height: calc(100% - 70px);
   overflow-y: auto;
