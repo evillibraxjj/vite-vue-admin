@@ -2,7 +2,7 @@ const user = { id: 1, account: 'admin', name: '许佳俊', sex: 1, roles: ['admi
 export default {
   'post|/login': ({ body }) => {
     const { account, password, token } = JSON.parse(body);
-    const success = !!token || (account == 'admin' && password == '123456');
+    const success = !!token || (account == 'admin' && password == 'e10adc3949ba59abbe56e057f20f883e');
     const code = success ? 200 : 500,
       message = !success && '登录失败';
     return {

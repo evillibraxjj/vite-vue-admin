@@ -54,7 +54,7 @@ const siderList = computed(() => {
 
 watch(route, ({ name, matched }) => {
   selectedKeys.value = [name];
-  openKeys.value = matched.map((e) => e.name);
+  openKeys.value = [...new Set([...openKeys.value, ...matched.map((e) => e.name)])];
 });
 
 const onSelectMenu = ({ key: name }) => router.push({ name });

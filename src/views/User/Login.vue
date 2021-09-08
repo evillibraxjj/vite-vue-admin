@@ -10,8 +10,7 @@
       <a-input type="password" v-model:value="formState.password" placeholder="请输入密码" />
     </a-form-item>
     <a-form-item name="setup">
-      <a-row type="flex" justify="space-between" align="middle">
-        <a-checkbox v-model:checked="formState.setup">记住密码</a-checkbox>
+      <a-row type="flex" justify="end" align="middle">
         <router-link :to="{ name: 'login' }">忘记密码</router-link>
       </a-row>
     </a-form-item>
@@ -20,9 +19,10 @@
   </a-form>
 </template>
 <script setup>
-import { defineComponent, reactive, ref, toRaw } from 'vue';
+import { reactive, ref, toRaw } from 'vue';
 import { useRouter } from 'vue-router';
 import { useRequest } from 'vue-request';
+import md5 from 'js-md5';
 import { userLogin } from '@/api/user';
 
 const copyright = import.meta.env.VITE_COPYRIGHT;
@@ -32,7 +32,6 @@ const formRef = ref();
 const formState = reactive({
   account: '',
   password: '',
-  setup: false,
 });
 const rules = {
   account: [
@@ -55,10 +54,10 @@ const { run, data, loading } = useRequest(userLogin, {
   manual: true,
 });
 
-const onFinish = async () => {
+const onFinish = async (values) => {
   try {
     await formRef.value.validate();
-    await run(toRaw(formState));
+    await run({ ...values, password: md5(values.password) });
     if (!data.value) return;
     localStorage.setItem('token', data.value);
     router.replace('/');
