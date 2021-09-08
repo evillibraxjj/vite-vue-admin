@@ -1,19 +1,7 @@
 <template>
-  <a-dropdown v-if="userInfo" :trigger="['click']">
-    <a-button type="link">
-      {{ userInfo.name }}
-      <DownOutlined />
-    </a-button>
-    <template #overlay>
-      <a-menu>
-        <a-menu-item> 个人资料 </a-menu-item>
-        <a-menu-item> 修改密码 </a-menu-item>
-        <a-menu-divider />
-        <a-menu-item @click="onClickLogout"> 退出登录 </a-menu-item>
-      </a-menu>
-    </template>
-  </a-dropdown>
+  <span @click="onClickLogout">退出登录</span>
 </template>
+
 <script setup>
 import { ExclamationCircleOutlined } from '@ant-design/icons-vue';
 import { createVNode, inject } from 'vue';

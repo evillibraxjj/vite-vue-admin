@@ -1,4 +1,4 @@
-const router = [
+export let router = [
   {
     path: '/service',
     name: 'service',
@@ -33,6 +33,7 @@ const router = [
               title: '用户列表',
               icon: 'OrderedListOutlined',
               actions: ['export', 'update'],
+              keepAlive: true,
             },
             component: 'userList',
           },

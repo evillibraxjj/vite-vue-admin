@@ -29,8 +29,8 @@
     </a-table-column>
     <a-table-column title="账号" data-index="account" width="150px" />
     <a-table-column key="sex" title="性别" data-index="sex" width="100px">
-      <template #default="{ text: sex }">
-        {{ sexDic.filter(sex) }}
+      <template #default="{ text }">
+        <Dictionary :value="text" type="sex" readOnly />
       </template>
     </a-table-column>
     <a-table-column title="角色" data-index="roles">
@@ -52,7 +52,6 @@
 <script setup>
 import { ref, reactive } from 'vue';
 import { getUserList } from '@/api/user';
-import { sexDic } from '@/utils/dictionary';
 
 const tableRef = ref();
 const formRef = ref();

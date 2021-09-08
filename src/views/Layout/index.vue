@@ -1,23 +1,17 @@
 <template>
   <a-spin :spinning="loading" tip="用户资料加载中...">
-    <a-layout style="height: 100vh">
+    <a-layout>
       <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
         <Sider />
       </a-layout-sider>
       <a-layout>
         <a-layout-header>
-          <component
-            style="font-size: 18px"
-            :is="collapsed ? 'menu-unfold-outlined' : 'menu-fold-outlined'"
-            @click="() => (collapsed = !collapsed)"
-          />
-          <HorizontalMenu />
-          <UserDropdown />
+          <Horizontal />
         </a-layout-header>
         <a-layout-content>
           <LayoutBreadcrumb />
           <div class="router-view">
-            <router-view :key="routerKey" />
+            <KeepRouterView />
           </div>
         </a-layout-content>
         <a-layout-footer>{{ copyright }}</a-layout-footer>
@@ -28,9 +22,9 @@
 <script setup>
 import { ref, provide } from 'vue';
 import useLoadUserInfo from '@/hooks/useLoadUserInfo';
-import HorizontalMenu from './HorizontalMenu.vue';
+
+import Horizontal from './Horizontal/index.vue';
 import Sider from './Sider/index.vue';
-import UserDropdown from './UserDropdown.vue';
 import LayoutBreadcrumb from './LayoutBreadcrumb.vue';
 
 const copyright = import.meta.env.VITE_COPYRIGHT;
@@ -46,7 +40,7 @@ const { loading } = useLoadUserInfo();
 
 <style lang="less" scoped>
 .ant-layout {
-  height: 100%;
+  height: 100vh;
   background: #fff;
   > .ant-layout-header {
     user-select: none;

@@ -12,3 +12,7 @@ export const sexDic = {
     };
   }),
 };
+
+export default {
+  sex: sexDic,
+};

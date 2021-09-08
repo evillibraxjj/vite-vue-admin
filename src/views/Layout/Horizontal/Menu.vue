@@ -31,6 +31,9 @@ watch(route, ({ matched }) => {
 const onSelectMenu = ({ key: name }) => router.push({ name });
 </script>
 <style lang="less" scoped>
+.ant-menu-horizontal {
+  border-bottom: 0px;
+}
 .ant-menu {
   flex: 1;
   :deep(.ant-menu-item) {

@@ -5,13 +5,12 @@
 </template>
 
 <script setup>
-import { watch, toRefs } from 'vue';
+import { watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import locale from 'ant-design-vue/es/locale/zh_CN';
 
 const route = useRoute();
 const router = useRouter();
-
 watch(route, (val) => {
   //判断是否刷新页面 跳转到首页添加重新向
   if (val.name) return;

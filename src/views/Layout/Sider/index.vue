@@ -1,5 +1,5 @@
 <template>
-  <LogoDrawer />
+  <Logo />
   <a-menu
     mode="inline"
     theme="dark"
@@ -31,7 +31,7 @@
 <script setup>
 import { watch, computed, ref, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import LogoDrawer from './LogoDrawer.vue';
+import Logo from './Logo.vue';
 import SubMenu from './SubMenu.vue';
 
 const route = useRoute();
