@@ -1,6 +1,6 @@
 <template>
   <div>{{ userInfo }}</div>
-  <div class="routes" @click="color = 'blue'">{{ routes }}</div>
+  <div class="routes" @click="color = 'black'">{{ routes }}</div>
 </template>
 
 <script setup>
