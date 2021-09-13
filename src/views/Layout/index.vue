@@ -20,7 +20,7 @@
   </a-spin>
 </template>
 <script setup>
-import { ref, provide } from 'vue';
+import { ref, watch, provide } from 'vue';
 import useLoadUserInfo from '@/hooks/useLoadUserInfo';
 
 import Horizontal from './Horizontal/index.vue';
@@ -32,7 +32,8 @@ const copyright = import.meta.env.VITE_COPYRIGHT;
 const routerKey = ref(new Date().getTime());
 provide('routerKey', routerKey);
 
-const collapsed = ref(false);
+const collapsed = ref(localStorage.getItem('collapsed') === 'true');
+watch(collapsed, (val) => localStorage.setItem('collapsed', val));
 provide('collapsed', collapsed);
 
 const { loading } = useLoadUserInfo();

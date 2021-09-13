@@ -67,5 +67,10 @@ const onSelectMenu = ({ key: name }) => router.push({ name });
   &::-webkit-scrollbar {
     width: 0px;
   }
+  &.ant-menu-inline-collapsed {
+    :deep(.ant-menu-submenu-selected) {
+      border-bottom: 1px solid #1890ff;
+    }
+  }
 }
 </style>
