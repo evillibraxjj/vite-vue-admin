@@ -18,7 +18,6 @@
           <a-button type="primary" html-type="submit">查询</a-button>
           <a-button @click="onReset">重置</a-button>
           <a-button type="primary" v-action="'export'" @click="onExport">导出</a-button>
-          <slot />
         </a-space>
       </a-form>
     </template>

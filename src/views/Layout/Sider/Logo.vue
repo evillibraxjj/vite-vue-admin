@@ -4,7 +4,6 @@
     title="公司列表"
     placement="left"
     :visible="visible"
-    :closable="false"
     :headerStyle="{
       position: 'sticky',
       top: ' 0px',
