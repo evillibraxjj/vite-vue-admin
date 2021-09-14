@@ -14,6 +14,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
+          if (id.includes('src/views')) {
+            return id.toString().split('/src/views/')[1].split('/')[0].toLocaleLowerCase();
+          }
           if (id.includes('node_modules')) {
             return id.toString().split('node_modules/')[1].split('/')[0].toLocaleLowerCase();
           }

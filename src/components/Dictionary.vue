@@ -1,5 +1,5 @@
 <template>
-  <span v-if="readOnly">{{ data.map[props.value] }}</span>
+  <span v-if="readOnly">{{ dictionary[props.type].map[props.value] }}</span>
 </template>
 
 <script setup>
@@ -9,9 +9,6 @@ const props = defineProps({
   type: String,
   readOnly: Boolean,
 });
-
-const data = dictionary[props.type];
-console.info('data', data.map);
 </script>
 
 <style></style>

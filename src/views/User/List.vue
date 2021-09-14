@@ -35,7 +35,7 @@
     </a-table-column>
     <a-table-column title="角色" data-index="roles">
       <template #default="{ text: roles }">
-        <a-tag v-for="role in roles" :key="role">{{ role }}</a-tag>
+        <TagList :defaultData="roles" />
       </template>
     </a-table-column>
     <a-table-column title="操作" width="200px">

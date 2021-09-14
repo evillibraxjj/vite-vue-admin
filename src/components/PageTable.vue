@@ -48,6 +48,8 @@ const router = useRouter();
 
 const tableRef = ref();
 
+const cssTableBodyHeight = ref('0px');
+
 const scroll = ref(props.scroll);
 
 const pageNo = ref(parseInt(route.query.pageNo ?? 1));
@@ -71,6 +73,9 @@ const {
     pageSize.value = res[props.replaceFields.pageSize];
     total.value = res[props.replaceFields.total];
 
+    const list = res[props.replaceFields.list];
+    cssTableBodyHeight.value = list.length ? scroll.value.y : '0px';
+
     router.replace({
       query: {
         pageNo: pageNo.value,
@@ -78,7 +83,7 @@ const {
       },
     });
 
-    return res[props.replaceFields.list];
+    return list;
   },
 });
 
@@ -131,6 +136,6 @@ defineExpose({
 </script>
 <style lang="less" scoped>
 .ant-table-wrapper :deep(.ant-table-body) {
-  height: 100vh;
+  height: v-bind(cssTableBodyHeight);
 }
 </style>

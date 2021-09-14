@@ -17,7 +17,7 @@
         <Dictionary v-model:value="userInfo.sex" type="sex" readOnly />
       </a-descriptions-item>
       <a-descriptions-item label="角色">
-        <a-tag v-for="role in userInfo.roles" :key="role">{{ role }}</a-tag>
+        <TagList :defaultData="userInfo.roles" />
       </a-descriptions-item>
     </a-descriptions>
   </a-drawer>
