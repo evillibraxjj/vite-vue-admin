@@ -14,11 +14,13 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
+          const getFileName = (path, key) => {
+            return path.toString().split(key)[1].split('/')[0].split('.')[0].replace('@', '').toLocaleLowerCase();
+          };
           if (id.includes('src/views')) {
-            return id.toString().split('/src/views/')[1].split('/')[0].toLocaleLowerCase();
-          }
-          if (id.includes('node_modules')) {
-            return id.toString().split('node_modules/')[1].split('/')[0].toLocaleLowerCase();
+            return getFileName(id, 'src/views');
+          } else if (id.includes('node_modules')) {
+            return getFileName(id, 'node_modules');
           }
         },
       },
